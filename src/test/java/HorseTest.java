@@ -42,4 +42,60 @@ class HorseTest {
         assertEquals("Name cannot be blank.", exception.getMessage());
     }
 
+    /*Проверить, что при передаче в конструктор вторым параметром отрицательного числа, будет выброшено IllegalArgumentException*/
+    @Test
+    public void getThrowWhenHorseSpeedIsNegative(){
+        assertThrows(IllegalArgumentException.class, () -> new Horse("name", -1, 10.0));
+    }
+
+    /*Проверить, что при передаче в конструктор вторым параметром отрицательного числа,
+        выброшенное исключение будет содержать сообщение "Speed cannot be negative."*/
+    @Test
+    public void checkThrowMessageWhenHorseSpeedIsNegative(){
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new Horse("name", -1, 10.0));
+        assertEquals("Speed cannot be negative.", exception.getMessage());
+    }
+
+    /*Проверить, что при передаче в конструктор третьим параметром отрицательного числа, будет выброшено IllegalArgumentException*/
+    @Test
+    public void getThrowWhenHorseDistanceIsNegative(){
+        assertThrows(IllegalArgumentException.class, () -> new Horse("name", 1, -10.0));
+    }
+
+    /*Проверить, что при передаче в конструктор третьим параметром отрицательного числа,
+        выброшенное исключение будет содержать сообщение "Distance cannot be negative."*/
+    @Test
+    public void checkThrowMessageWhenHorseDistanceIsNegative(){
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new Horse("name", 1, -10.0));
+        assertEquals("Distance cannot be negative.", exception.getMessage());
+    }
+
+    /*Проверить, что метод возвращает строку, которая была передана первым параметром в конструктор*/
+    @Test
+    public void getNameTest(){
+        Horse horse = new Horse("Name", 1, 1);
+        assertEquals("Name", horse.getName());
+    }
+
+    /*Проверить, что метод возвращает число, которое было передано вторым параметром в конструктор*/
+    @Test
+    public void getSpeedTest(){
+        Horse horse = new Horse("Name", 1, 1);
+        assertEquals(1, horse.getSpeed());
+    }
+
+    /*Проверить, что метод возвращает число, которое было передано третьим параметром в конструктор*/
+    @Test
+    public void getDistanceTest(){
+        Horse horse = new Horse("Name", 1, 1);
+        assertEquals(1, horse.getDistance());
+    }
+
+    /*Проверить, что метод возвращает ноль, если объект был создан с помощью конструктора с двумя параметрами*/
+    @Test
+    public void getDistanceWhenConstructorWithTwoParametersTest(){
+        Horse horse = new Horse("Name", 1);
+        assertEquals(0, horse.getDistance());
+    }
+
 }
