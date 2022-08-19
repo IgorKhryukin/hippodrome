@@ -1,7 +1,11 @@
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -96,6 +100,18 @@ class HorseTest {
     public void getDistanceWhenConstructorWithTwoParametersTest(){
         Horse horse = new Horse("Name", 1);
         assertEquals(0, horse.getDistance());
+    }
+
+    /*Проверить, что метод вызывает внутри метод getRandomDouble с параметрами 0.2 и 0.9.
+        Для этого нужно использовать MockedStatic и его метод verify*/
+    @ExtendWith(MockitoExtension.class)
+    @Test
+    public void checkMoveCallsGetRandomDouble(){
+        Horse horse = new Horse("Name", 1, 1);
+        try (MockedStatic<Horse> mockedHorse = Mockito.mockStatic(Horse.class)) {
+            horse.move();
+            mockedHorse.verify(() -> Horse.getRandomDouble(0.2, 0.9));
+        }
     }
 
 }
